@@ -1,13 +1,16 @@
-const express = require('express')
-const cors = require('cors')
-const app = express()
-const employees = require('./data/employees.json');
+const express = require('express');
+const cors = require('cors');
+
+const app = express();
+const db = require('../models');
+db.sequelize.sync();
 
 var corsOptions = {
   origin: 'http://localhost:3000',
   optionsSuccessStatus: 200
 }
 
+const employees = require('./data/employees.json');
 app.get('/api/employees', cors(corsOptions), (req, res, next) => {
   console.log('/api/employees');
   res.setHeader('Content-Type', 'application/json');
