@@ -6,11 +6,15 @@
   "dependencies": {
     "concurrently": "^3.6.0",
     "cors": "^2.8.4",
+    "dot-env": "^0.0.1",
     "express": "^4.16.3",
+    "morgan": "^1.9.1",
     "nodemon": "^1.17.5",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "sequelize": "^5.21.1",
+    "sequelize-cli": "^5.5.1"
   },
   "scripts": {
     "start": "concurrently --kill-others \"node server\" \"npm run start:react-app\"",
@@ -20,5 +24,10 @@
     "eject": "react-scripts eject",
     "custom:build": "nodemon src/scripts/build.js --watch src/data --ext .md",
     "custom:start": "concurrently --kill-others \"npm run custom:build\" \"npm run start\""
+  },
+  "devDependencies": {
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3"
   }
 }
