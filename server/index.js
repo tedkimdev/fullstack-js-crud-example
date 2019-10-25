@@ -10,9 +10,22 @@ var corsOptions = {
   optionsSuccessStatus: 200
 }
 
-const employees = require('./data/employees.json');
-app.get('/api/employees', cors(corsOptions), (req, res, next) => {
+app.get('/api/employees', cors(corsOptions), async (req, res, next) => {
   console.log('/api/employees');
+  let employees = await db.Employee.findAll();
+  
+  // delete
+  employees = employees.map(employee => ({
+    id: employee.id,
+    name: employee.name,
+    code: employee.code,
+    profession: employee.profession,
+    color: employee.color,
+    city: employee.city,
+    branch: employee.branch,
+    assigned: employee.assigned
+  }))
+  
   res.setHeader('Content-Type', 'application/json');
   res.status(200);
   res.send(JSON.stringify(employees, null, 2));
