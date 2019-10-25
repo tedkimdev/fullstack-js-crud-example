@@ -1,5 +1,8 @@
 {
   "name": "plex-employees",
+  "engines": {
+    "node": "10.16.3"
+  },
   "version": "0.1.0",
   "license": "None provided",
   "private": true,
