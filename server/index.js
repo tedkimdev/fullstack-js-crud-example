@@ -10,7 +10,8 @@ var corsOptions = {
   optionsSuccessStatus: 200
 }
 
-app.get('/api/employees', cors(corsOptions), async (req, res, next) => {
+app.use(cors(corsOptions));
+app.get('/api/employees', async (req, res, next) => {
   console.log('/api/employees');
   let employees = await db.Employee.findAll();
   
@@ -25,7 +26,7 @@ app.get('/api/employees', cors(corsOptions), async (req, res, next) => {
     branch: employee.branch,
     assigned: employee.assigned
   }))
-  
+
   res.setHeader('Content-Type', 'application/json');
   res.status(200);
   res.send(JSON.stringify(employees, null, 2));
