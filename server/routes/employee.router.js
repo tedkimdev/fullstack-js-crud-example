@@ -4,7 +4,6 @@ const db = require('../models');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  console.log('/api/employees');
   let employees = await db.Employee.findAll();
   
   // delete
@@ -28,13 +27,15 @@ router.get('/:id', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-  // try {
-  //   const employee = await db.Employee.findOne({
-  //     where: {
+  try {
+    // TODO: validate
+    const employee = await db.Employee.create(req.body)
 
-  //     }
-  //   })
-  // }
+    return res.json(employee);
+  } catch(e) {
+    console.error(e);
+    res.status(500).json({ status: 'error', mesage: 'Internal server error'});
+  }
 })
 
 router.put('/', async (req, res) => {
