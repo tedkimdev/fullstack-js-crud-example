@@ -28,12 +28,30 @@ router.get('/:id', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
+  // try {
+  //   const employee = await db.Employee.findOne({
+  //     where: {
+
+  //     }
+  //   })
+  // }
 })
 
 router.put('/', async (req, res) => {
 })
 
 router.delete('/:id', async (req, res) => {
+  try {
+    const employee = await db.Employee.findOne({ where: { id: req.params.id } });
+    if (!employee) {
+      return res.status(404).json({ status: 'error', mesage: 'Employee not found'})
+    }
+    await db.Employee.destroy({ where: { id: req.params.id } });
+    res.send(req.params.id);
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ status: 'error', mesage: 'Internal server error'});
+  }
 })
 
 module.exports = router;
