@@ -38,7 +38,52 @@ router.post('/', async (req, res) => {
   }
 })
 
-router.put('/', async (req, res) => {
+router.put('/:id', async (req, res) => {
+  try {
+    const employeeId = req.params.id
+    const { name, code, profession, color, city, branch, assigned } = req.body
+    
+    let employee = await db.Employee.findOne({
+      where: {
+        id: employeeId
+      }
+    })
+    if (!employee) {
+      return res.status(404).json({ status: 'error', mesage: 'Employee not found'})
+    }
+    const attributes = {
+      name, code, profession, color, city, branch, assigned
+    }
+
+    // keep existing if not provided
+    if (!name) {
+      attributes.name = employee.name
+    }
+    if (!code) {
+      attributes.code = employee.code
+    }
+    if (!profession) {
+      attributes.profession = employee.profession
+    }
+    if (!color) {
+      attributes.color = employee.color
+    }
+    if (!city) {
+      attributes.city = employee.city
+    }
+    if (!branch) {
+      attributes.branch = employee.branch
+    }
+    if (!assigned) {
+      attributes.assigned = employee.assigned
+    }
+
+    employee = await employee.update(attributes)
+    return res.json(employee);
+  } catch(e) {
+    console.error(e);
+    res.status(500).json({ status: 'error', mesage: 'Internal server error'});
+  }
 })
 
 router.delete('/:id', async (req, res) => {
