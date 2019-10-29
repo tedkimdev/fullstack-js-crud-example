@@ -29,9 +29,10 @@
     "styled-components": "^4.4.0"
   },
   "scripts": {
+    "dev:react-app": "next",
+    "build": "next build",
     "start": "concurrently --kill-others \"node server\" \"npm run start:react-app\"",
-    "start:react-app": "react-scripts start",
-    "build": "react-scripts build",
+    "start:react-app": "next start",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "custom:build": "nodemon src/scripts/build.js --watch src/data --ext .md",
