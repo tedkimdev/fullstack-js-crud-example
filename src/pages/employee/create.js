@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import Form from 'react-bootstrap/Form';
@@ -6,17 +6,18 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 
 import AppLayout from '../../components/app-layout.component'
+import useInput from '../../utils/use-input';
 
 const CreateEmployee = () => {
-  const [name, setName] = useState('');
-  const [code, setCode] = useState('');
-  const [profession, setProfession] = useState('');
-  const [color, setColor] = useState('');
-  const [city, setCity] = useState('');
-  const [branch, setBranch] = useState('');
+  const [name, onChangeName] = useInput('');
+  const [code, onChangeCode] = useInput('');
+  const [profession, onChangeProfession] = useInput('');
+  const [color, onChangeColor] = useInput('');
+  const [city, onChangeCity] = useInput('');
+  const [branch, onChangeBranch] = useInput('');
   const [assigned, setAssigned] = useState(false);
-  
-  const onSubmit = (e) => {
+
+  const onSubmit = useCallback((e) => {
     e.preventDefault();
     console.log({
       name,
@@ -27,29 +28,11 @@ const CreateEmployee = () => {
       assigned,
       city
     })
-  };
-  const onChangeName = (e) => {
-    setName(e.target.value);
-  };
-  const onChangeCode = (e) => {
-    setCode(e.target.value);
-  };
-  const onChangeProfession = (e) => {
-    setProfession(e.target.value);
-  };
-  const onChangeColor = (e) => {
-    setColor(e.target.value);
-  };
-  const onChangeCity = (e) => {
-    setCity(e.target.value);
-  };
-  const onChangeBranch = (e) => {
-    setBranch(e.target.value);
-  };
-  const onChangeAssigned = (e) => {
-    setAssigned(e.target.checked);
-  };
+  }, [name, code, profession, color, city, branch, assigned]);
   
+  const onChangeAssigned = useCallback((e) => {
+    setAssigned(e.target.checked);
+  }, []);
 
   return (
     <>
