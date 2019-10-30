@@ -3,16 +3,15 @@ import axios from 'axios';
 import {GET_EMPLOYEES_REQUEST, GET_EMPLOYEES_SUCCESS, GET_EMPLOYEES_FAILURE } from '../reducers/employee';
 
 function getEmployeesAPI() {
-  return fetch('http://localhost:8080/api/employees')
-    .then(response => response.json())
+  return axios.get(`/employees`);
 }
 
 function* getEmployees() {
   try {
-    const employees = yield call(getEmployeesAPI);
+    const response = yield call(getEmployeesAPI);
     yield put({
       type: GET_EMPLOYEES_SUCCESS,
-      employees: employees.map(employee => ({ ...employee, _id: employee.id }))
+      employees: response.data.map(employee => ({ ...employee, _id: employee.id }))
     });
   } catch (e) {
     yield put({
