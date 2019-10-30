@@ -1,10 +1,13 @@
 
 import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 
 const EmployeesList = () => {
+  const { employees } = useSelector(state => state.employee);
+
   const columns = useMemo(() => [
     { Header: 'ID', accessor: '_id'},
     { Header: 'Name', accessor: 'name'},
@@ -28,9 +31,7 @@ const EmployeesList = () => {
     <div style={{ padding: 10 }}>
       <ReactTable
         columns={columns}
-        data={[
-          {_id: '1', name: 'name', profession: 'pro', code: 'F100', color: '#FFFFFF', branch: 'branch', city: 'Toronto', assigned: false }
-        ]}
+        data={employees}
         loading={false}
         defaultPageSize={10}
         showPageSizeOptions={true}
