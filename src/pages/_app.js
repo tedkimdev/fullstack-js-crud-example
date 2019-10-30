@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
-import { createStore } from 'redux';
+import { createStore, compose, applyMiddleware } from 'redux';
 
 import AppLayout from '../components/app-layout.component';
 import reducer from '../reducers';
@@ -27,7 +27,14 @@ const App = ({ Component, store }) => {
 };
 
 export default withRedux((initialState, options) => {
-  const store = createStore(reducer, initialState);
   // customize store here
+  const composeEnhancers =
+    !options.isServer && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
+  const middlewares = [];
+  const enhancer = composeEnhancers(
+    applyMiddleware(...middlewares)
+  );
+  const store = createStore(reducer, initialState, enhancer);
   return store;
 })(App);
