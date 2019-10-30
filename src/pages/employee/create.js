@@ -1,11 +1,17 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
+import { useSelector, useDispatch } from 'react-redux';
+import Router from 'next/router';
 
 import useInput from '../../utils/use-input';
+import { createEmployeeAction, setCreateEmployeeInitialState } from '../../reducers/employee';
 
 const CreateEmployee = () => {
+  const dispatch = useDispatch();
+  const { isAddingEmployee, employeeAdded } = useSelector(state => state.employee);
+
   const [name, onChangeName] = useInput('');
   const [code, onChangeCode] = useInput('');
   const [profession, onChangeProfession] = useInput('');
@@ -16,7 +22,8 @@ const CreateEmployee = () => {
 
   const onSubmit = useCallback((e) => {
     e.preventDefault();
-    console.log({
+    
+    dispatch(createEmployeeAction({
       name,
       profession,
       code,
@@ -24,8 +31,15 @@ const CreateEmployee = () => {
       branch,
       assigned,
       city
-    })
+    }));
   }, [name, code, profession, color, city, branch, assigned]);
+  
+  useEffect(() => {
+    if (employeeAdded) {
+      dispatch(setCreateEmployeeInitialState());
+      Router.push('/');
+    }
+  }, [employeeAdded === true]);
 
   const onChangeAssigned = useCallback((e) => {
     setAssigned(e.target.checked);
