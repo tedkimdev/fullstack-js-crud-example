@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Navbar, Card } from 'react-bootstrap';
+import React from 'react';
+import { Navbar } from 'react-bootstrap';
 import Link from 'next/link';
 
 const AppLayout = ({ children }) => {

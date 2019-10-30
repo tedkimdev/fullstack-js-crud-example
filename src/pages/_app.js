@@ -1,11 +1,15 @@
 import React from 'react';
 import Head from 'next/head';
+import { Provider } from 'react-redux';
+import withRedux from 'next-redux-wrapper';
+import { createStore } from 'redux';
 
-import AppLayout from '../components/app-layout.component'
+import AppLayout from '../components/app-layout.component';
+import reducer from '../reducers';
 
-const App = ({ Component }) => {
+const App = ({ Component, store }) => {
   return (
-    <>
+    <Provider store={store}>
       <Head>
         <title>Plexxis Exercise</title>
         <link
@@ -18,8 +22,12 @@ const App = ({ Component }) => {
       <AppLayout>
         <Component />
       </AppLayout>
-    </>
+    </Provider>
   );
 };
 
-export default App;
+export default withRedux((initialState, options) => {
+  const store = createStore(reducer, initialState);
+  // customize store here
+  return store;
+})(App);
