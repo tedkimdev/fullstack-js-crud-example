@@ -1,12 +1,17 @@
 import React from 'react';
-import Link from 'next/link';
+
+import EmployeesList from '../components/employees-list.component';
+
+const dummy = {
+  isLoading: false
+}
 
 const Home = () => {
   return (
-    <>
-      <Link href="/employee/create"><a>Create</a></Link>
+    <div>
       <div>Home</div>
-    </>
+      <EmployeesList />
+    </div>
   );
 };
 
