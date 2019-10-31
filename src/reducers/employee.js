@@ -5,6 +5,9 @@ export const initialState = {
   employeeAdded: false,
   createEmployeeError: '',
   removedId: '',
+  employee: {},
+  employeeUpdated: false,
+  getEmployeeError: '',
 };
 
 export const GET_EMPLOYEES_REQUEST = 'GET_EMPLOYEES_REQUEST';
@@ -47,6 +50,13 @@ export const removeEmployeeAction = (id) => {
     id
   };
 };
+
+export const getEmployeeAction = (id) => {
+  return {
+    type: GET_EMPLOYEE_REQUEST,
+    id
+  };
+}
 
 export const setCreateEmployeeInitialState = () => {
   return {
@@ -112,6 +122,27 @@ const reducer = (state = initialState, action) => {
     case DELETE_EMPLOYEE_FAILURE:
       return {
         ...state,
+      }
+    case GET_EMPLOYEE_REQUEST:
+      return {
+        ...state,
+        employee: {},
+        employeeUpdated: false,
+        getEmployeeError: '',
+      }
+    case GET_EMPLOYEE_SUCCESS:
+      return {
+        ...state,
+        employee: action.employee,
+        employeeUpdated: true,
+        getEmployeeError: ''
+      }
+    case GET_EMPLOYEE_FAILURE:
+      return {
+        ...state,
+        employee: {},
+        employeeUpdated: false,
+        getEmployeeError: action.error
       }
     default:
       return state;

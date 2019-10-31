@@ -2,6 +2,7 @@ import React, { useMemo, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import ReactTable from "react-table";
 import styled from 'styled-components';
+import Link from 'next/link';
 
 const RemoveButton = styled.button.attrs({
   className: `btn btn-danger`
@@ -34,7 +35,7 @@ const EmployeesList = ({ onRemove, onEdit }) => {
     {
       Cell: ({ row }) => (
         <span>
-          <EditButton onClick={() => onEdit(row.id)}>Edit</EditButton>
+          <Link href={`/employee/edit?id=${row.id}`} as={`/employee/edit/${row.id}`}><EditButton>Edit</EditButton></Link>
         </span>
       )
     },

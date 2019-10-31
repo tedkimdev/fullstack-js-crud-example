@@ -12,14 +12,14 @@ const CancelButton = styled.a.attrs({
   margin: 15px 15px 15px 5px;
 `;
 
-const EmployeeForm = ({ submitAction, isNew = true }) => {
-  const [name, onChangeName] = useInput('');
-  const [code, onChangeCode] = useInput('');
-  const [profession, onChangeProfession] = useInput('');
-  const [color, onChangeColor] = useInput('');
-  const [city, onChangeCity] = useInput('');
-  const [branch, onChangeBranch] = useInput('');
-  const [assigned, setAssigned] = useState(false);
+const EmployeeForm = ({ employee = {}, submitAction, isNew = true }) => {
+  const [name, onChangeName] = useInput(employee.name || '');
+  const [code, onChangeCode] = useInput(employee.code || '');
+  const [profession, onChangeProfession] = useInput(employee.profession || '');
+  const [color, onChangeColor] = useInput(employee.color || '');
+  const [city, onChangeCity] = useInput(employee.city || '');
+  const [branch, onChangeBranch] = useInput(employee.branch || '');
+  const [assigned, setAssigned] = useState(employee.assigned || false);
 
   const onSubmit = useCallback((e) => {
     e.preventDefault();
