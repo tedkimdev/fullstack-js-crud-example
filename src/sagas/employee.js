@@ -18,7 +18,7 @@ function* getEmployees() {
     const response = yield call(getEmployeesAPI);
     yield put({
       type: GET_EMPLOYEES_SUCCESS,
-      employees: response.data.map(employee => ({ ...employee, _id: employee.id }))
+      employees: response.data
     });
   } catch (e) {
     yield put({
@@ -42,7 +42,7 @@ function* createEmployee(action) {
     const employee = response.data;
     yield put({
       type: CREATE_EMPLOYEE_SUCCESS,
-      employee: { ...employee, _id: employee.id }
+      employee
     });
   } catch (e) {
     yield put({

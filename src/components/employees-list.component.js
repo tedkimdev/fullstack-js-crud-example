@@ -8,7 +8,7 @@ const EmployeesList = () => {
   const { employees } = useSelector(state => state.employee);
 
   const columns = useMemo(() => [
-    { Header: 'ID', accessor: '_id'},
+    { Header: 'ID', accessor: 'id'},
     { Header: 'Name', accessor: 'name'},
     { Header: 'Profession', accessor: 'profession' },
     { Header: 'Code', accessor: 'code' },
