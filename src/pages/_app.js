@@ -3,10 +3,10 @@ import Head from 'next/head';
 import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import { createStore, compose, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
 
 import AppLayout from '../components/app-layout.component';
 import reducer from '../reducers';
-import sagaMiddleware from '../sagas/middleware';
 import rootSaga from '../sagas';
 import "react-table/react-table.css";
 
@@ -31,6 +31,7 @@ const App = ({ Component, store }) => {
 
 export default withRedux((initialState, options) => {
   // customize store here
+  const sagaMiddleware = createSagaMiddleware();
   const middlewares = [sagaMiddleware];
   const composeEnhancers = process.env.NODE_ENV === 'production'
     ? compose
