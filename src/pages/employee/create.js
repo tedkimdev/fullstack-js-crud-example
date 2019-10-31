@@ -1,93 +1,31 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
+import React, { useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Router from 'next/router';
 
-import useInput from '../../utils/use-input';
 import { createEmployeeAction, setCreateEmployeeInitialState } from '../../reducers/employee';
+import EmployeeForm from '../../components/employee-form.component';
 
 const CreateEmployee = () => {
   const dispatch = useDispatch();
   const { isAddingEmployee, employeeAdded } = useSelector(state => state.employee);
 
-  const [name, onChangeName] = useInput('');
-  const [code, onChangeCode] = useInput('');
-  const [profession, onChangeProfession] = useInput('');
-  const [color, onChangeColor] = useInput('');
-  const [city, onChangeCity] = useInput('');
-  const [branch, onChangeBranch] = useInput('');
-  const [assigned, setAssigned] = useState(false);
+  const onCreate = (employee) => {
+    dispatch(createEmployeeAction(employee));
+  }
 
-  const onSubmit = useCallback((e) => {
-    e.preventDefault();
-    
-    dispatch(createEmployeeAction({
-      name,
-      profession,
-      code,
-      color,
-      branch,
-      assigned,
-      city
-    }));
-  }, [name, code, profession, color, city, branch, assigned]);
-  
   useEffect(() => {
     if (employeeAdded) {
-      dispatch(setCreateEmployeeInitialState());
       Router.push('/');
+      dispatch(setCreateEmployeeInitialState());
     }
-  }, [employeeAdded === true]);
-
-  const onChangeAssigned = useCallback((e) => {
-    setAssigned(e.target.checked);
-  }, []);
+  }, [employeeAdded]);
 
   return (
     <>
-      <Form style={{ padding: 10 }}>
-        <Form.Group controlId="formGridName">
-          <Form.Label>Name</Form.Label>
-          <Form.Control value={name} onChange={onChangeName} />
-        </Form.Group>
-
-        <Form.Group controlId="formGridCode">
-          <Form.Label>Code</Form.Label>
-          <Form.Control value={code} onChange={onChangeCode} />
-        </Form.Group>
-
-        <Form.Group controlId="formGridProfession">
-          <Form.Label>Profession</Form.Label>
-          <Form.Control value={profession} onChange={onChangeProfession} />
-        </Form.Group>
-
-        <Form.Group controlId="formGridColor">
-          <Form.Label>Color</Form.Label>
-          <Form.Control value={color} onChange={onChangeColor} />
-        </Form.Group>
-
-        <Form.Row>
-          <Form.Group as={Col} controlId="formGridCity">
-            <Form.Label>City</Form.Label>
-            <Form.Control value={city} onChange={onChangeCity} />
-          </Form.Group>
-
-          <Form.Group as={Col} controlId="formGridBranch">
-            <Form.Label>Branch</Form.Label>
-            <Form.Control value={branch} onChange={onChangeBranch} />
-          </Form.Group>
-        </Form.Row>
-
-        <Form.Group id="formGridAssigned">
-          <Form.Check type="checkbox" label="Assigned" checked={assigned} onChange={onChangeAssigned} />
-        </Form.Group>
-
-        <Button variant="primary" type="submit" onClick={onSubmit}>
-          Save
-        </Button>
-      </Form>
+      <EmployeeForm
+        submitAction={onCreate}
+        isNew={true}
+      />
     </>
   );
 };
