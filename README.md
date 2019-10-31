@@ -1,4 +1,35 @@
+# What I did
+## Server
+- morgan for logging
+- Sequelize for ORM
+- DB: PostgreSQL
+- Seed data
+- Employee API (CRUD)
+
+## Frontend
+- Next.js
+- Redux
+- Redux Saga for side effects like async call(REST API)
+- Styled Component
+- React Table
+- axios for communication with REST API
+- React Bootstrap
+
+### How to run
+- `docker-compose up --build` to build and run PostgreSQL
+- `npm run seed or yarn seed` to seed data on database
+- `npm run dev` to run
+
+### To Do
+- Validation check
+- Style pages on frontend
+- Refactor frontend folder hierarchy
+- Sort employees
+- Confirm message before delete
+
+
 # Plexxis Interview Exercise
+
 ## Requirements
 Create a simple but __impressive__ (looks good, works well, has intuitive design, etc.) CRUD application that can do the following:
 
