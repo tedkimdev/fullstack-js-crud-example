@@ -42,6 +42,6 @@
     "eject": "react-scripts eject",
     "custom:build": "nodemon src/scripts/build.js --watch src/data --ext .md",
     "custom:start": "concurrently --kill-others \"npm run custom:build\" \"npm run start\"",
-    "seed": "cd server && sequelize db:seed:all server && cd .."
+    "seed": "sequelize db:seed:all --config server/config/config.json --seeders-path server/seeders"
   }
 }
