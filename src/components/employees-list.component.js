@@ -1,7 +1,5 @@
-
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components';
 import ReactTable from "react-table";
 
 const EmployeesList = () => {

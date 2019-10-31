@@ -4,6 +4,7 @@ import Router from 'next/router';
 
 import { createEmployeeAction, setCreateEmployeeInitialState } from '../../reducers/employee';
 import EmployeeForm from '../../components/employee-form.component';
+import { Title, Container } from '../../styled';
 
 const CreateEmployee = () => {
   const dispatch = useDispatch();
@@ -21,12 +22,13 @@ const CreateEmployee = () => {
   }, [employeeAdded]);
 
   return (
-    <>
+    <Container>
+      <Title>Create Employee</Title>
       <EmployeeForm
         submitAction={onCreate}
         isNew={true}
       />
-    </>
+    </Container>
   );
 };
 

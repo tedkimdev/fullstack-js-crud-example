@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import EmployeesList from '../components/employees-list.component';
 
+import EmployeesList from '../components/employees-list.component';
 import { getEmployeesAction } from '../reducers/employee';
+import { Title, Container } from '../styled';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -12,10 +13,10 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
-      <div>Home</div>
+    <Container>
+      <Title>Employee List</Title>
       <EmployeesList />
-    </div>
+    </Container>
   );
 };
 
