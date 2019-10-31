@@ -4,6 +4,7 @@ export const initialState = {
   isAddingEmployee: false,
   employeeAdded: false,
   createEmployeeError: '',
+  removedId: '',
 };
 
 export const GET_EMPLOYEES_REQUEST = 'GET_EMPLOYEES_REQUEST';
@@ -19,13 +20,13 @@ export const CREATE_EMPLOYEE_SUCCESS = 'CREATE_EMPLOYEE_SUCCESS';
 export const CREATE_EMPLOYEE_FAILURE = 'CREATE_EMPLOYEE_FAILURE';
 export const SET_CREATE_EMPLOYEE_INITIAL_STATE = 'SET_CREATE_EMPLOYEE_INITIAL_STATE';
 
-export const UPDATE_EMPLOYEES_REQUEST = 'UPDATE_EMPLOYEES_REQUEST';
-export const UPDATE_EMPLOYEES_SUCCESS = 'UPDATE_EMPLOYEES_SUCCESS';
-export const UPDATE_EMPLOYEES_FAILURE = 'UPDATE_EMPLOYEES_FAILURE';
+export const UPDATE_EMPLOYEE_REQUEST = 'UPDATE_EMPLOYEE_REQUEST';
+export const UPDATE_EMPLOYEE_SUCCESS = 'UPDATE_EMPLOYEE_SUCCESS';
+export const UPDATE_EMPLOYEE_FAILURE = 'UPDATE_EMPLOYEE_FAILURE';
 
-export const DELETE_EMPLOYEES_REQUEST = 'DELETE_EMPLOYEES_REQUEST';
-export const DELETE_EMPLOYEES_SUCCESS = 'DELETE_EMPLOYEES_SUCCESS';
-export const DELETE_EMPLOYEES_FAILURE = 'DELETE_EMPLOYEES_FAILURE';
+export const DELETE_EMPLOYEE_REQUEST = 'DELETE_EMPLOYEE_REQUEST';
+export const DELETE_EMPLOYEE_SUCCESS = 'DELETE_EMPLOYEE_SUCCESS';
+export const DELETE_EMPLOYEE_FAILURE = 'DELETE_EMPLOYEE_FAILURE';
 
 export const getEmployeesAction = () => {
   return {
@@ -37,13 +38,21 @@ export const createEmployeeAction = (data) => {
   return {
     type: CREATE_EMPLOYEE_REQUEST,
     data
-  }
-}
+  };
+};
+
+export const removeEmployeeAction = (id) => {
+  return {
+    type: DELETE_EMPLOYEE_REQUEST,
+    id
+  };
+};
+
 export const setCreateEmployeeInitialState = () => {
   return {
     type: SET_CREATE_EMPLOYEE_INITIAL_STATE
-  }
-}
+  };
+};
 
 const reducer = (state = initialState, action) => {
   switch(action.type) {
@@ -51,48 +60,61 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         getEmployeesError: ''
-      }
+      };
     case GET_EMPLOYEES_SUCCESS:
       return {
         ...state,
         getEmployeesError: '',
         employees: action.employees
-      }
+      };
     case GET_EMPLOYEES_FAILURE:
       return {
         ...state,
         getEmployeesError: action.error
-      }
+      };
     case SET_CREATE_EMPLOYEE_INITIAL_STATE: 
       return {
         ...state,
         createEmployeeError: '',
         isAddingEmployee: false,
         employeeAdded: false
-      }
+      };
     case CREATE_EMPLOYEE_REQUEST:
       return {
         ...state,
         createEmployeeError: '',
         isAddingEmployee: true,
         employeeAdded: false
-      }
+      };
     case CREATE_EMPLOYEE_SUCCESS:
       return {
         ...state,
         getEmployeesError: '',
         isAddingEmployee: false,
         employeeAdded: true
-      }
+      };
     case CREATE_EMPLOYEE_FAILURE:
       return {
         ...state,
         createEmployeeError: action.error,
         isAddingEmployee: false,
         employeeAdded: false
+      };
+    case DELETE_EMPLOYEE_REQUEST:
+      return {
+        ...state,
+      }
+    case DELETE_EMPLOYEE_SUCCESS:
+      return {
+        ...state,
+        removedId: action.id
+      }
+    case DELETE_EMPLOYEE_FAILURE:
+      return {
+        ...state,
       }
     default:
-      return state
+      return state;
   }
 };
 

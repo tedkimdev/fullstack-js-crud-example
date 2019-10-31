@@ -6,7 +6,10 @@ import {
   GET_EMPLOYEES_FAILURE,
   CREATE_EMPLOYEE_REQUEST,
   CREATE_EMPLOYEE_SUCCESS,
-  CREATE_EMPLOYEE_FAILURE
+  CREATE_EMPLOYEE_FAILURE,
+  DELETE_EMPLOYEE_REQUEST,
+  DELETE_EMPLOYEE_SUCCESS,
+  DELETE_EMPLOYEE_FAILURE
 } from '../reducers/employee';
 
 function getEmployeesAPI() {
@@ -56,9 +59,33 @@ function* watchCreateEmployee() {
   yield takeLatest(CREATE_EMPLOYEE_REQUEST, createEmployee);
 }
 
+function removeEmployeeAPI(id) {
+  return axios.delete(`/employees/${id}`);
+}
+
+function* removeEmployee(action) {
+  try {
+    const response = yield call(removeEmployeeAPI, action.id);
+    yield put({
+      type: DELETE_EMPLOYEE_SUCCESS,
+      id: response.data
+    });
+  } catch (e) {
+    yield put({
+      type: DELETE_EMPLOYEE_FAILURE,
+      error: e,
+    });
+  }
+}
+
+function* watchRemoveEmployee() {
+  yield takeLatest(DELETE_EMPLOYEE_REQUEST, removeEmployee);
+}
+
 export default function* employeeSaga() {
   yield all([
     fork(watchGetEmployees),
-    fork(watchCreateEmployee)
+    fork(watchCreateEmployee),
+    fork(watchRemoveEmployee)
   ]);
 }

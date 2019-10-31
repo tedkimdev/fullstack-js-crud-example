@@ -2,8 +2,15 @@ import React, { useCallback, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
+import styled from 'styled-components';
 
 import useInput from '../utils/use-input';
+
+const CancelButton = styled.a.attrs({
+  className: `btn btn-danger`,
+})`
+  margin: 15px 15px 15px 5px;
+`;
 
 const EmployeeForm = ({ submitAction, isNew = true }) => {
   const [name, onChangeName] = useInput('');
@@ -75,6 +82,7 @@ const EmployeeForm = ({ submitAction, isNew = true }) => {
         <Button variant="primary" type="submit" onClick={onSubmit}>
           { isNew? 'Save' : 'Update' }
         </Button>
+        <CancelButton href={'/'}>Cancel</CancelButton>
       </Form>
     </>
   )
