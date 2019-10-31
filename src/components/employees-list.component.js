@@ -3,7 +3,6 @@ import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import ReactTable from "react-table";
-import "react-table/react-table.css";
 
 const EmployeesList = () => {
   const { employees } = useSelector(state => state.employee);

@@ -8,6 +8,7 @@ import AppLayout from '../components/app-layout.component';
 import reducer from '../reducers';
 import sagaMiddleware from '../sagas/middleware';
 import rootSaga from '../sagas';
+import "react-table/react-table.css";
 
 const App = ({ Component, store }) => {
   return (
