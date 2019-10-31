@@ -1,4 +1,4 @@
-import { all, call } from 'redux-saga/effects';
+import { all, fork } from 'redux-saga/effects';
 import axios from 'axios';
 
 import employee from './employee';
@@ -8,6 +8,6 @@ axios.defaults.baseURL = `${backAddress}/api`;
 
 export default function* rootSaga() {
   yield all([
-    call(employee)
+    fork(employee)
   ]);
 }
