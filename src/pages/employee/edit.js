@@ -2,7 +2,11 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Router, { useRouter } from 'next/router';
 
-import { getEmployeeAction } from '../../reducers/employee';
+import {
+  getEmployeeAction,
+  updateEmployeeAction,
+  setUpdateEmployeeInitialState
+} from '../../reducers/employee';
 import EmployeeForm from '../../components/employee-form.component';
 import { Title, Container } from '../../styled';
 
@@ -17,10 +21,16 @@ const EditEmployee = () => {
     dispatch(getEmployeeAction(employeeId));
   }, []);
 
-  const onEdit = () => {
-    console.log('On Edit');
-    console.log(router.query.id);
-  }
+  useEffect(() => {
+    if (employeeUpdated) {
+      Router.push('/');
+      dispatch(setUpdateEmployeeInitialState());
+    }
+  }, [employeeUpdated]);
+
+  const onEdit = (employee) => {
+    dispatch(updateEmployeeAction(employee));
+  };
   
   return (
     <Container>

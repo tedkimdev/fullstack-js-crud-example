@@ -25,7 +25,9 @@ const EmployeeForm = ({ employee = {}, submitAction, isNew = true }) => {
     e.preventDefault();
 
     // TOOD: valdiation
+    console.log('#', employee.id);
     submitAction({
+      id: employee.id,
       name,
       profession,
       code,
@@ -34,7 +36,7 @@ const EmployeeForm = ({ employee = {}, submitAction, isNew = true }) => {
       assigned,
       city
     });
-  }, [name, code, profession, color, city, branch, assigned]);
+  }, [employee.id, name, code, profession, color, city, branch, assigned]);
 
   const onChangeAssigned = useCallback((e) => {
     setAssigned(e.target.checked);

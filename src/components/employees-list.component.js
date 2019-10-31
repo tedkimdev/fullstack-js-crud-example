@@ -12,7 +12,7 @@ const EditButton = styled.button.attrs({
   className: `btn btn-secondary`
 })``;
 
-const EmployeesList = ({ onRemove, onEdit }) => {
+const EmployeesList = ({ onRemove }) => {
   const { employees } = useSelector(state => state.employee);
 
   const columns = useMemo(() => [

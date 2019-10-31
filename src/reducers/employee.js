@@ -7,6 +7,7 @@ export const initialState = {
   removedId: '',
   employee: {},
   employeeUpdated: false,
+  updateEmployeeError: '',
   getEmployeeError: '',
 };
 
@@ -26,6 +27,7 @@ export const SET_CREATE_EMPLOYEE_INITIAL_STATE = 'SET_CREATE_EMPLOYEE_INITIAL_ST
 export const UPDATE_EMPLOYEE_REQUEST = 'UPDATE_EMPLOYEE_REQUEST';
 export const UPDATE_EMPLOYEE_SUCCESS = 'UPDATE_EMPLOYEE_SUCCESS';
 export const UPDATE_EMPLOYEE_FAILURE = 'UPDATE_EMPLOYEE_FAILURE';
+export const SET_UPDATE_EMPLOYEE_INITIAL_STATE = 'SET_UPDATE_EMPLOYEE_INITIAL_STATE';
 
 export const DELETE_EMPLOYEE_REQUEST = 'DELETE_EMPLOYEE_REQUEST';
 export const DELETE_EMPLOYEE_SUCCESS = 'DELETE_EMPLOYEE_SUCCESS';
@@ -58,11 +60,24 @@ export const getEmployeeAction = (id) => {
   };
 }
 
+export const updateEmployeeAction = (data) => {
+  return {
+    type: UPDATE_EMPLOYEE_REQUEST,
+    data
+  };
+};
+
 export const setCreateEmployeeInitialState = () => {
   return {
     type: SET_CREATE_EMPLOYEE_INITIAL_STATE
   };
 };
+
+export const setUpdateEmployeeInitialState = () => {
+  return {
+    type: SET_UPDATE_EMPLOYEE_INITIAL_STATE
+  };
+}
 
 const reducer = (state = initialState, action) => {
   switch(action.type) {
@@ -127,22 +142,41 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         employee: {},
-        employeeUpdated: false,
         getEmployeeError: '',
       }
     case GET_EMPLOYEE_SUCCESS:
       return {
         ...state,
         employee: action.employee,
-        employeeUpdated: true,
         getEmployeeError: ''
       }
     case GET_EMPLOYEE_FAILURE:
       return {
         ...state,
         employee: {},
-        employeeUpdated: false,
         getEmployeeError: action.error
+      }
+    case UPDATE_EMPLOYEE_REQUEST:
+      return {
+        ...state,
+        employeeUpdated: false,
+        updateEmployeeError: ''
+      }
+    case UPDATE_EMPLOYEE_SUCCESS:
+      return {
+        ...state,
+        employeeUpdated: true
+      }
+    case UPDATE_EMPLOYEE_FAILURE:
+      return {
+        ...state,
+        employeeUpdated: false,
+        updateEmployeeError: action.error
+      }
+    case SET_UPDATE_EMPLOYEE_INITIAL_STATE:
+      return {
+        ...state,
+        employeeUpdated: false
       }
     default:
       return state;
