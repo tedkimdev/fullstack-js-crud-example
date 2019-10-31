@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     color: {
-      type: DataTypes.STRING(7),
+      type: DataTypes.STRING(20),
       allowNull: false,
     },
     city: {

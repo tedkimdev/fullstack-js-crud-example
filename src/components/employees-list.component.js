@@ -3,8 +3,12 @@ import { useSelector } from 'react-redux';
 import ReactTable from "react-table";
 import styled from 'styled-components';
 
-const RemoveButton = styled.a.attrs({
-  className: `btn btn-danger`,
+const RemoveButton = styled.button.attrs({
+  className: `btn btn-danger`
+})``;
+
+const EditButton = styled.button.attrs({
+  className: `btn btn-secondary`
 })``;
 
 const EmployeesList = ({ onRemove, onEdit }) => {
@@ -25,6 +29,13 @@ const EmployeesList = ({ onRemove, onEdit }) => {
         <div>
           <input type="checkbox" checked={row.assigned} disabled/>
         </div>
+      )
+    },
+    {
+      Cell: ({ row }) => (
+        <span>
+          <EditButton onClick={() => onEdit(row.id)}>Edit</EditButton>
+        </span>
       )
     },
     {
