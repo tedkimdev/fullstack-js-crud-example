@@ -24,6 +24,16 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/:id', async (req, res) => {
+  try {
+    const employee = await db.Employee.findOne({ where: { id: req.params.id } });
+    if (!employee) {
+      return res.status(404).json({ status: 'error', mesage: 'Employee not found'})
+    }
+    return res.json(employee);
+  } catch(e) {
+    console.error(e);
+    res.status(500).json({ status: 'error', mesage: 'Internal server error'});
+  }
 })
 
 router.post('/', async (req, res) => {
