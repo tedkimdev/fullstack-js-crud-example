@@ -1,4 +1,5 @@
-# What I did
+
+![image](https://user-images.githubusercontent.com/20268356/68001649-59b7d280-fc3b-11e9-866c-672f6126c606.png)
 ## Server
 - morgan for logging
 - Sequelize for ORM
@@ -26,7 +27,6 @@
 - Refactor frontend folder hierarchy
 - Sort employees
 - Confirm message before delete
-
 
 # Plexxis Interview Exercise
 
